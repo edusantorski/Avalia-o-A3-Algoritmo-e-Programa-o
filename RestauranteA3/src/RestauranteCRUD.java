@@ -37,21 +37,13 @@ public class RestauranteCRUD {
         String[] nomeCliente = new String[100];
         String[] itens = new String[100];
 
+        //Exibição de mensagem de inicialização
+        inicio(); 
         
-        System.out.println("\n=========================");
-        System.out.println("\n| PROGRAMA DE FICHA PARA |");
-        System.out.println("\n|  RESTAURANTES E BARES  |");
-        System.out.println("\n=========================");
         
         //Início do looping de menu, encerrado apenas se for digitada a opção 5.
         do {
-            System.out.println("\n\n======= MENU =======");
-            System.out.println("1 - Criar pedido");
-            System.out.println("2 - Listar pedidos");
-            System.out.println("3 - Atualizar pedido");
-            System.out.println("4 - Remover pedido");
-            System.out.println("5 - Sair");
-            System.out.print("Escolha uma opção: ");
+            menu();
 
             //Leitura da opção digitada através do teclado sc.
             opcao = sc.nextInt();
@@ -61,50 +53,50 @@ public class RestauranteCRUD {
             switch (opcao) {
 
                 case 1:
-                    System.out.println("\n--- Criar Pedido ---");
+                	strLn("\n--- Criar Pedido ---");
 
-                    System.out.print("Número do pedido: ");
+                    str("Número do pedido: ");
                     // Faz a leitura dos dados do pedido e armazena no vetor da quantidade total de pedidos;
                     numeroPedido[totalPedidos] = sc.nextInt();
                     sc.nextLine();
 
-                    System.out.print("Nome do cliente: ");
+                    str("Nome do cliente: ");
                     nomeCliente[totalPedidos] = sc.nextLine();
 
-                    System.out.print("Número da mesa: ");
+                    str("Número da mesa: ");
                     numeroMesa[totalPedidos] = sc.nextInt();
                     sc.nextLine();
 
-                    System.out.print("Itens do pedido: ");
+                    str("Itens do pedido: ");
                     itens[totalPedidos] = sc.nextLine();
                     
                     // Atualiza o vetor para que o próximo pedido cadastrado ocupe o vetor ++.
                     totalPedidos++;
 
-                    System.out.println("Pedido cadastrado com sucesso!");
+                    strLn("Pedido cadastrado com sucesso!");
                     break;
 
                 case 2:
-                    System.out.println("\n--- Lista de Pedidos ---");
+                	strLn("\n--- Lista de Pedidos ---");
                     
                     //Condicional para verificar se há algum pedido cadastrado.
                     if (totalPedidos == 0) {
-                        System.out.println("Nenhum pedido cadastrado.");
+                    	strLn("Nenhum pedido cadastrado.");
                     } else { //Impressão de todos os pedidos cadastrados através de looping "for".
                         for (int i = 0; i < totalPedidos; i++) {
-                            System.out.println("\nPedido #" + numeroPedido[i]);
-                            System.out.println("Cliente: " + nomeCliente[i]);
-                            System.out.println("Mesa: " + numeroMesa[i]);
-                            System.out.println("Itens: " + itens[i]);
+                        	strLn("\nPedido #" + numeroPedido[i]);
+                            strLn("Cliente: " + nomeCliente[i]);
+                            strLn("Mesa: " + numeroMesa[i]);
+                            strLn("Itens: " + itens[i]);
                         }
                     }
                     break;
 
                 case 3:
-                    System.out.println("\n--- Atualizar Pedido ---");
+                	strLn("\n--- Atualizar Pedido ---");
 
-                    System.out.print("Digite o número do pedido: ");
-                    int busca = sc.nextInt(); //Variável "busca" para gravar o pedido a ser pesquisado;
+                    str("Digite o número do pedido: ");
+                    int busca = sc.nextInt(); //Leitura da variável "busca" para gravar o pedido a ser pesquisado.
                     sc.nextLine();
                     
                     boolean encontrado = false; //Definição de variával booleana para validar se pedido existe ou não existe.
@@ -113,30 +105,60 @@ public class RestauranteCRUD {
                     for (int i = 0; i < totalPedidos; i++) {
                         if (numeroPedido[i] == busca) {
 
-                            System.out.print("Novo nome do cliente: "); //Ler novo valor de nome
-                            nomeCliente[i] = sc.nextLine();
-
-                            System.out.print("Novo número da mesa: "); //Ler novo nr da mesa
-                            numeroMesa[i] = sc.nextInt();
-                            sc.nextLine();
-
-                            System.out.print("Novos itens: "); //Ler novos itens cadastrados
-                            itens[i] = sc.nextLine();
-
-                            encontrado = true; //Alterar variável boleanda para verdadeiro = pedido encotrado.
-                            System.out.println("Pedido atualizado!");
+                        	//Impressão do pedido
+                        	strLn("=== Pedido Localizado ===");
+                        	strLn("\nPedido #" + numeroPedido[i]);
+                            strLn("Cliente: " + nomeCliente[i]);
+                            strLn("Mesa: " + numeroMesa[i]);
+                            strLn("Itens: " + itens[i]);
+                            
+                        	int opcaoAtualizar = 0;
+                        	
+                            do {
+                            		menuAtualizar(); //Impressão do menu de opções de atualizar pedido
+                            		
+                            	    opcaoAtualizar = sc.nextInt();//Leitura da opção escolhida no menu
+                            	    sc.nextLine();//Limpeza do buffer do sc
+                            		
+                            		switch (opcaoAtualizar) {
+                            		case 1: 
+                            			str("Novo nome do cliente: "); //Ler novo valor de nome
+        	                            nomeCliente[i] = sc.nextLine();
+        	                            break;
+                            			
+                            		case 2:
+                            			str("Novo número da mesa: "); //Ler novo nr da mesa
+         	                            numeroMesa[i] = sc.nextInt();
+         	                            sc.nextLine(); //Limpar buffer do sc.
+                            			break; 
+                            			
+                            		case 3: 
+                            			str("Novos itens: "); //Ler novos itens cadastrados
+        	                            itens[i] = sc.nextLine();
+                            			break;
+                            			
+                            		case 4: 
+                            			str("Pedido atualizado!");
+                            			break;
+                            			
+                            			default: strLn("Opção inválida.");
+                            		}
+                            } while (opcaoAtualizar != 4);                            	  
+    
+	                            encontrado = true; //Alterar variável boleanda para verdadeiro = pedido encotrado.
+	                            strLn("\nRetornando ao menu inicial.");
                         }
                     }
 
                     if (!encontrado) { //Condicional para validar se o pedido não foi encontrado, imprime "não encontrado"
-                        System.out.println("Pedido não encontrado.");
+                    	strLn("Pedido não encontrado.");
                     }
                     break;
 
                 case 4:
-                    System.out.println("\n--- Remover Pedido ---");
+                	strLn("\n=== Remover Pedido ===");
 
-                    System.out.print("Digite o número do pedido: ");
+                    str("Digite o número do pedido: ");
                     int remover = sc.nextInt(); //Leitura do nr de pedido a ser "removido"
 
                     boolean removido = false; //Variável de confirmação se o pedido foi encontrado.
@@ -155,26 +177,62 @@ public class RestauranteCRUD {
                             totalPedidos--; // Diminui a qtd. total de pedidos registrados no contador após remoção do pedido
                             removido = true; //Altera validação para verdadeira
 
-                            System.out.println("Pedido removido!");
+                            strLn("Pedido removido!");
                             break;
                         }
                     }
 
                     if (!removido) { //Caso não encontre o número digitado.
-                        System.out.println("Pedido não encontrado.");
+                    	strLn("Pedido não encontrado.");
                     }
                     break;
 
                 case 5:
-                    System.out.println("Encerrando o sistema...");
+                	strLn("Encerrando o sistema...");
                     break;
 
                 default:
-                    System.out.println("Opção inválida! Tente novamente.");
+                	strLn("Opção inválida! Tente novamente.");
             }
 
         } while (opcao != 5); //Condicional de looping do menu.
 
         sc.close();
     }
+
+	public static void strLn (String x) {
+		System.out.println(x);
+	}
+
+	public static void str (String x) {
+		System.out.print(x);
+	}
+
+	public static void menuAtualizar() {
+		strLn("\n\n=== Atualizar ===");
+	    strLn("[1] - Alterar nome do Cliente");
+	    strLn("[2] - Alterar número da mesa");
+	    strLn("[3] - Alterar itens do pedido");
+	    strLn("[4] - Retornar ao menu inicial");
+	    strLn("\nDigite uma opção:");
+	}
+
+	public static void menu () {
+		strLn("\n\n======= MENU =======");
+		strLn("[1] - Criar pedido");
+	    strLn("[2] - Listar pedidos");
+	    strLn("[3] - Atualizar pedido");
+	    strLn("[4] - Remover pedido");
+	    strLn("[5] - Sair");
+	    str("\nDigite uma opção: ");
+	
+	}
+
+	public static void inicio () {
+		strLn("\n=========================");
+	    strLn("\n| PROGRAMA DE FICHA PARA |");
+	    strLn("\n|  RESTAURANTES E BARES  |");
+	    strLn("\n=========================");
+	}
+    
 }
