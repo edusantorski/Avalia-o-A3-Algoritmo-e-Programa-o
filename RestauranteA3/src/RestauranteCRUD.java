@@ -46,9 +46,16 @@ public class RestauranteCRUD {
             menu();
 
             //Leitura da opção digitada através do teclado sc.
-            opcao = sc.nextInt();
-            sc.nextLine(); 
-
+            while (true) { //While para validar se um número inteiro foi digitado.
+                if (sc.hasNextInt()) {
+                    opcao = sc.nextInt();
+                    sc.nextLine(); // limpa buffer
+                    break;
+                } else {
+                    str("Entrada inválida! Digite uma opção:");
+                    sc.nextLine(); // limpeza de buffer
+                }
+            }
             //Inicio do switch case com as 5 opções do menu.
             switch (opcao) {
 
@@ -57,16 +64,32 @@ public class RestauranteCRUD {
 
                     str("Número do pedido: ");
                     // Faz a leitura dos dados do pedido e armazena no vetor da quantidade total de pedidos;
-                    numeroPedido[totalPedidos] = sc.nextInt();
-                    sc.nextLine();
+                   while (true) { //While para validar se um número inteiro foi digitado.
+                        if (sc.hasNextInt()) {
+                        	numeroPedido[totalPedidos] = sc.nextInt();
+                            sc.nextLine(); // limpa buffer
+                            break;
+                        } else {
+                            str("Entrada inválida! Digite um número:");
+                            sc.nextLine(); // limpeza de buffer
+                        }
+                    }
 
                     str("Nome do cliente: ");
                     nomeCliente[totalPedidos] = sc.nextLine();
 
                     str("Número da mesa: ");
-                    numeroMesa[totalPedidos] = sc.nextInt();
-                    sc.nextLine();
-
+                    while (true) { //While para validar se um número inteiro foi digitado.
+                        if (sc.hasNextInt()) {
+                        	numeroMesa[totalPedidos] = sc.nextInt();
+                            sc.nextLine(); // limpa buffer
+                            break;
+                        } else {
+                            str("Entrada inválida! Digite um número:");
+                            sc.nextLine(); // limpeza de buffer
+                        }
+                    }
+                    
                     str("Itens do pedido: ");
                     itens[totalPedidos] = sc.nextLine();
                     
@@ -96,14 +119,24 @@ public class RestauranteCRUD {
                 	strLn("\n--- Atualizar Pedido ---");
 
                     str("Digite o número do pedido: ");
-                    int busca = sc.nextInt(); //Leitura da variável "busca" para gravar o pedido a ser pesquisado.
-                    sc.nextLine();
+                    int buscar = 0;
+                    while (true) { //While para validar se um número inteiro foi digitado.
+                        if (sc.hasNextInt()) {
+                        	int busca = sc.nextInt(); //Leitura da variável "busca" para gravar o pedido a ser pesquisado.
+                            sc.nextLine(); // limpa buffer
+                            buscar = busca;
+                            break;
+                        } else {
+                            str("Entrada inválida! Digite um número:");
+                            sc.nextLine(); // limpeza de buffer
+                        }
+                    }
                     
                     boolean encontrado = false; //Definição de variával booleana para validar se pedido existe ou não existe.
 
                     //Inicio de looping para checar todas as fichas cadastradas no Array e localizar "busca"
                     for (int i = 0; i < totalPedidos; i++) {
-                        if (numeroPedido[i] == busca) {
+                        if (numeroPedido[i] == buscar) {
 
                         	//Impressão do pedido
                         	strLn("=== Pedido Localizado ===");
@@ -117,9 +150,17 @@ public class RestauranteCRUD {
                             do {
                             		menuAtualizar(); //Impressão do menu de opções de atualizar pedido
                             		
-                            	    opcaoAtualizar = sc.nextInt();//Leitura da opção escolhida no menu
-                            	    sc.nextLine();//Limpeza do buffer do sc
-                            		
+                            		 while (true) { //While para validar se um número inteiro foi digitado.
+                                         if (sc.hasNextInt()) {
+                                        	opcaoAtualizar = sc.nextInt();//Leitura da opção escolhida no menu
+                                     	    sc.nextLine();//Limpeza do buffer do sc
+                                             break;
+                                         } else {
+                                             str("Entrada inválida! Digite um número:");
+                                             sc.nextLine(); // limpeza de buffer
+                                         }
+                                     }
+                                    
                             		switch (opcaoAtualizar) {
                             		case 1: 
                             			str("Novo nome do cliente: "); //Ler novo valor de nome
@@ -128,8 +169,16 @@ public class RestauranteCRUD {
                             			
                             		case 2:
                             			str("Novo número da mesa: "); //Ler novo nr da mesa
-         	                            numeroMesa[i] = sc.nextInt();
-         	                            sc.nextLine(); //Limpar buffer do sc.
+                            			while (true) { //While para validar se um número inteiro foi digitado.
+                                            if (sc.hasNextInt()) {
+                                            	numeroMesa[i] = sc.nextInt();
+                 	                            sc.nextLine(); //Limpar buffer do sc.
+                                                break;
+                                            } else {
+                                                str("Entrada inválida! Digite um número:");
+                                                sc.nextLine(); // limpeza de buffer
+                                            }
+                                        }
                             			break; 
                             			
                             		case 3: 
@@ -159,13 +208,24 @@ public class RestauranteCRUD {
                 	strLn("\n=== Remover Pedido ===");
 
                     str("Digite o número do pedido: ");
-                    int remover = sc.nextInt(); //Leitura do nr de pedido a ser "removido"
-
+                    int remove = 0;
+                    while (true) { //While para validar se um número inteiro foi digitado.
+                        if (sc.hasNextInt()) {
+                        	int remover = sc.nextInt(); //Leitura do nr de pedido a ser "removido"
+                            sc.nextLine(); //Limpar buffer do sc.
+                            remove = remover;
+                            break;
+                        } else {
+                            str("Entrada inválida! Digite um número:");
+                            sc.nextLine(); // limpeza de buffer
+                        }
+                    }
+                    
                     boolean removido = false; //Variável de confirmação se o pedido foi encontrado.
 
                     //Início da verificação do pedido a ser removido
                     for (int i = 0; i < totalPedidos; i++) {
-                        if (numeroPedido[i] == remover) { //Condicional caso o pedido digitado seja encontrado
+                        if (numeroPedido[i] == remove) { //Condicional caso o pedido digitado seja encontrado
 
                             for (int x = i; x < totalPedidos - 1; x++) { //Inicio de looping for para reorganizar os arrays seguintes, 
                                 numeroPedido[x] = numeroPedido[x + 1];
