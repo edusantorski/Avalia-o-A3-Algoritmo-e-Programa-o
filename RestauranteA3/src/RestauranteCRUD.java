@@ -52,7 +52,7 @@ public class RestauranteCRUD {
                     sc.nextLine(); // limpa buffer
                     break;
                 } else {
-                    str("Entrada inválida! Digite uma opção:");
+                    str("Entrada inválida! Digite uma opção: ");
                     sc.nextLine(); // limpeza de buffer
                 }
             }
@@ -68,7 +68,16 @@ public class RestauranteCRUD {
                         if (sc.hasNextInt()) {
                         	numeroPedido[totalPedidos] = sc.nextInt();
                             sc.nextLine(); // limpa buffer
-                            break;
+                            
+                            int numero =   numeroPedido[totalPedidos];
+
+							//Condicional para limitar a quantidade máxima do input do usuário
+                            if (numero <= 100) {
+                                numeroPedido[totalPedidos] = numero;
+                                break;
+                            } else {
+                                str("Número inválido! Digite um número menor que 100: ");
+                            }
                         } else {
                             str("Entrada inválida! Digite um número:");
                             sc.nextLine(); // limpeza de buffer
@@ -76,14 +85,32 @@ public class RestauranteCRUD {
                     }
 
                     str("Nome do cliente: ");
-                    nomeCliente[totalPedidos] = sc.nextLine();
+                    
+                    // Função de validar e limita a quantidade de caracteres em até 100 caracteres.
+                    while (true) {
+                        nomeCliente[totalPedidos] = sc.nextLine();
+
+                        if (nomeCliente[totalPedidos].length() <= 20) {
+                            break;
+                        } else {
+                            strLn("Nome muito longo! Digite até 20 caracteres: ");
+                        }
+                    }
 
                     str("Número da mesa: ");
                     while (true) { //While para validar se um número inteiro foi digitado.
                         if (sc.hasNextInt()) {
                         	numeroMesa[totalPedidos] = sc.nextInt();
                             sc.nextLine(); // limpa buffer
-                            break;
+                            
+                            int numero = numeroMesa[totalPedidos];
+							//Condicional para limitar a quantidade máxima do input do usuário
+                            if (numero <= 30) {
+                                numeroMesa[totalPedidos] = numero;
+                                break;
+                            } else {
+                                str("Número inválido! Digite um número menor que 30: ");
+                            }
                         } else {
                             str("Entrada inválida! Digite um número:");
                             sc.nextLine(); // limpeza de buffer
@@ -91,7 +118,18 @@ public class RestauranteCRUD {
                     }
                     
                     str("Itens do pedido: ");
-                    itens[totalPedidos] = sc.nextLine();
+                    
+                    // Função de validar e limitar a quantidade de caracteres em até 100 caracteres.
+                    while (true) {
+                    	itens[totalPedidos] = sc.nextLine();
+
+                        if (itens[totalPedidos].length() <= 100) {
+                            break;
+                        } else {
+                            strLn("Pedido muito longo! Digite até 100 caracteres: ");
+                        }
+                    }
+                    
                     
                     // Atualiza o vetor para que o próximo pedido cadastrado ocupe o vetor ++.
                     totalPedidos++;
@@ -156,7 +194,7 @@ public class RestauranteCRUD {
                                      	    sc.nextLine();//Limpeza do buffer do sc
                                              break;
                                          } else {
-                                             str("Entrada inválida! Digite um número:");
+                                             str("Entrada inválida! Digite um número: ");
                                              sc.nextLine(); // limpeza de buffer
                                          }
                                      }
@@ -164,7 +202,18 @@ public class RestauranteCRUD {
                             		switch (opcaoAtualizar) {
                             		case 1: 
                             			str("Novo nome do cliente: "); //Ler novo valor de nome
-        	                            nomeCliente[i] = sc.nextLine();
+        	                           
+        	                            // Função de validar e limitar a quantidade de caracteres em até 20 caracteres.
+        	                            while (true) {
+        	                            	nomeCliente[i] = sc.nextLine();
+
+        	                                if (nomeCliente[totalPedidos].length() <= 20) {
+        	                                    break;
+        	                                } else {
+        	                                    str("Nome muito longo! Digite até 20 caracteres: ");
+        	                                }
+        	                            }
+        	                            
         	                            break;
                             			
                             		case 2:
@@ -173,7 +222,15 @@ public class RestauranteCRUD {
                                             if (sc.hasNextInt()) {
                                             	numeroMesa[i] = sc.nextInt();
                  	                            sc.nextLine(); //Limpar buffer do sc.
-                                                break;
+                 	                            
+                 	                           int numero = numeroMesa[i];
+                 	                           //Condicional para limitar a quantidade máxima do input do usuário
+                 	                           if (numero <= 30) {
+                 	                                numeroPedido[totalPedidos] = numero;
+                 	                                break;
+                 	                            } else {
+                 	                                str("Número inválido! Digite um número menor que 30: ");
+                 	                            }
                                             } else {
                                                 str("Entrada inválida! Digite um número:");
                                                 sc.nextLine(); // limpeza de buffer
@@ -183,7 +240,17 @@ public class RestauranteCRUD {
                             			
                             		case 3: 
                             			str("Novos itens: "); //Ler novos itens cadastrados
-        	                            itens[i] = sc.nextLine();
+        	                            
+        	                            // Função de validar e limitar a quantidade de caracteres em até 100 caracteres.
+        	                            while (true) {
+        	                            	itens[i] = sc.nextLine();
+
+        	                                if (itens[totalPedidos].length() <= 100) {
+        	                                    break;
+        	                                } else {
+        	                                    str("Pedido muito longo! Digite até 100 caracteres:");
+        	                                }
+        	                            }
                             			break;
                             			
                             		case 4: 
